@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Filme.ro</title>
+<style>
+body {
+  margin: 0;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  background-image: url('E:/PIUG/Tema 2/Poze/antet.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: rgb(203, 141, 34);
+  padding: 30px;
+  text-align: left;
+  height: 190px;
+}
+.header h1 {
+  font-size: 80px; /* Mărimea fontului */
+  font-family:"Sans";
+  color: rgb(250, 249, 249);
+}
+
+.navbar {
+  overflow: hidden;
+  background-color: #2b2a2a;
+}
+
+.movie-card a {
+  color: #ff5733; /* Culoarea linkului */
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navbar a:hover {
+  background-color: #555;
+}
+
+.navbar a.active {
+  background-color: #ff5733;
+}
+
+.navbar input[type=search] {
+    float: right;
+    padding: 6px;
+    margin-top: 8px;
+    margin-right: 16px;
+    font-size: 17px;
+    border-radius:3px; 
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.movie-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.movie-card {
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+.movie-card h3 {
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+.movie-card p {
+  font-size: 14px;
+}
+
+#scrollBtn {
+  display: none; /* Ascunde butonul */
+  position: fixed; /* Poziționează-l în colțul din dreapta jos */
+  bottom: 20px;
+  right: 30px;
+  z-index: 99; /* Asigură-te că este deasupra altor elemente */
+  border: none;
+  outline: none;
+  background-color: #ff5733;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+#scrollBtn:hover {
+  background-color: #555; /* Schimbă culoarea de fundal la hover */
+}
+
+.dark-mode-button {
+  background-image: url('E:/PIUG/Tema 2/Poze/luna.png');
+  background-repeat: no-repeat;
+  background-size: contain; /* Asigură-te că întreaga imagine se încadrează în buton */
+  border: none;
+  width: 43px; /* Ajustați aceste valori în funcție de dimensiunea imaginii dvs. */
+  height: 43px;
+  background-color: #2b2a2a; /* Culoarea de fundal a butonului */
+}
+
+body.dark-mode {
+  background-color: #141313; /* Schimbă culoarea de fundal pentru modul întunecat */
+  color: white; /* Schimbă culoarea textului pentru modul întunecat */
+  /* Alte stiluri specifice pentru modul întunecat */
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Aliniază elementele pe axa transversală */
+}
+
+.navbar .search-and-theme {
+  display: flex;
+  align-items: center; /* Aliniază elementele pe axa transversală */
+}
+
+.navbar input[type=search] {
+  margin-right: 10px; /* Adaugă un spațiu între butonul de căutare și butonul de schimbare a temei */
+}
+
+.navbar a {
+  margin: auto 1em; /* Adaugă margini în jurul linkurilor pentru a le spația */
+}
+
+.dark-mode .movie-card {
+  background-color: #4b4a4a; /* Culoarea de fundal a căsuțelor cu filme în modul dark */
+  color: white; /* Culoarea textului în modul dark */
+}
+
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Filme.ro</h1>
+
+</div>
+
+<div class="navbar">
+  <a href="Acasa.html" class="acasa">Acasă</a>
+  <a href="#" class="active">Filme</a>
+  <a href="Despre.html" class="filme">Despre</a>
+  <a href="Contact.html" class="filme">Contact</a>
+  <a href="Help.html" class="filme">Ajutor</a>
+  <div class="search-and-theme">
+    <input type="search" placeholder="Caută...">
+    <button class="dark-mode-button" onclick="myFunction()"></button>
+  </div>
+</div>
+
+
+<div class="container">
+  <h2>Filme</h2>
+  <div class="movie-list">
+    <div class="movie-card">
+      <img src="E:/PIUG/Tema 2/Poze/the_creator_poster.jpg" alt="the_creator"  width="170" height="250">
+      <h3>The Creator</h3>
+      <p>Anul lansării: 2023</p>
+      <p>Regizor: Gareth Edwards</p>
+      <p>Gen: Acțiune, Aventură, Dramă</p>
+      <a href="#" class="movie-details-button" id="movie1">Trailer</a>
+    </div>
+
+    <div id="popup1" class="popup-content" style="display: none;">
+      <h2>The Creator</h2>
+      <div id="video-container">
+        <!-- Încorporați direct iframe-ul videoclipului YouTube aici -->
+        <iframe width="290" height="163" src="https://www.youtube.com/embed/ex3C1-5Dhb8?si=SRMZttyGG9mnQWyD" frameborder="0" allowfullscreen allow="autoplay; encrypted-media" autoplay="0"></iframe>
+      </div>
+      <button id="closePopup1">Închide</button>
+    </div>
+
+    <script>
+      document.getElementById("movie1").addEventListener("click", function(event) {
+        event.preventDefault();
+        document.getElementById("popup1").style.display = "block";
+      });
+      
+      document.getElementById("closePopup1").addEventListener("click", function(event) {
+        event.preventDefault();
+        document.getElementById("popup1").style.display = "none";
+      });
+      </script>
+
+    <div class="movie-card">
+      <img src="E:/PIUG/Tema 2/Poze/past_lives_poster.jpg" alt="past_lives"  width="170" height="250">
+      <h3>Past Lives</h3>
+      <p>Anul lansării: 2023</p>
+      <p>Regizor: Celine Song</p>
+      <p>Gen: Dramă, Romantic</p>
+      <a href="#" class="movie-details-button" id="movie2">Trailer</a>
+    </div>
+
+    <div id="popup2" class="popup-content" style="display: none;">
+      <h2>Past Lives</h2>
+      <div id="video-container">
+        <!-- Încorporați direct iframe-ul videoclipului YouTube aici -->
+        <iframe width="290" height="163" src="https://www.youtube.com/embed/kA244xewjcI?si=7ZCZhNJeJBD0Yro6" frameborder="0" allowfullscreen allow="autoplay; encrypted-media" autoplay="0"></iframe>
+      </div>
+      <button id="closePopup2">Închide</button>
+    </div>
+
+    <script>
+      document.getElementById("movie2").addEventListener("click", function(event) {
+        event.preventDefault();
+        document.getElementById("popup2").style.display = "block";
+      });
+      
+      document.getElementById("closePopup2").addEventListener("click", function(event) {
+        event.preventDefault();
+        document.getElementById("popup2").style.display = "none";
+      });
+      </script>
+
+    <div class="movie-card">
+        <img src="E:/PIUG/Tema 2/Poze/it.jpg" alt="it"  width="170" height="250">
+        <h3>IT</h3>
+        <p>Anul lansării: 2017</p>
+        <p>Regizor: Andy Muschietti</p>
+        <p>Gen: Horror</p>
+        <a href="#" class="movie-details-button" id="movie3">Trailer</a>
+      </div>
+
+      <div id="popup3" class="popup-content" style="display: none;">
+        <h2>IT</h2>
+        <div id="video-container">
+          <!-- Încorporați direct iframe-ul videoclipului YouTube aici -->
+          <iframe width="290" height="163" src="https://www.youtube.com/embed/FnCdOQsX5kc?si=0VY7qQcpw_pZVLGB" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <button id="closePopup3">Închide</button>
+      </div>
+  
+      <script>
+        document.getElementById("movie3").addEventListener("click", function(event) {
+          event.preventDefault();
+          document.getElementById("popup3").style.display = "block";
+        });
+        
+        document.getElementById("closePopup3").addEventListener("click", function(event) {
+          event.preventDefault();
+          document.getElementById("popup3").style.display = "none";
+        });
+        </script>
+
+      <div class="movie-card">
+        <img src="E:/PIUG/Tema 2/Poze/we_bought_a_zoo.jpg" alt="We_Bought_a_Zoo"  width="170" height="250">
+        <h3>We Bought a Zoo</h3>
+        <p>Anul lansării: 2011</p>
+        <p>Regizor: Cameron Crowe</p>
+        <p>Gen: Comedie, Dramă, Familie</p>
+        <a href="#" class="movie-details-button" id="movie4">Trailer</a>
+      </div>
+
+      <div id="popup4" class="popup-content" style="display: none;">
+        <h2>We Bought a Zoo</h2>
+        <div id="video-container">
+          <!-- Încorporați direct iframe-ul videoclipului YouTube aici -->
+          <iframe width="290" height="163" src="https://www.youtube.com/embed/Krh1koDU2uE?si=G5EYWDkvtYJW_W" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <button id="closePopup4">Închide</button>
+      </div>
+  
+      <script>
+        document.getElementById("movie4").addEventListener("click", function(event) {
+          event.preventDefault();
+          document.getElementById("popup4").style.display = "block";
+        });
+        
+        document.getElementById("closePopup4").addEventListener("click", function(event) {
+          event.preventDefault();
+          document.getElementById("popup4").style.display = "none";
+        });
+        </script>
+
+      <div class="movie-card">
+        <img src="E:/PIUG/Tema 2/Poze/a_beautiful_mind.jpg" alt="a_beautiful_mind"  width="170" height="250">
+        <h3>A Beautiful Mind</h3>
+        <p>Anul lansării: 2001</p>
+        <p>Regizor: Ron Howard</p>
+        <p>Gen: Biografie, Dramă</p>
+        <a href="#" class="movie-details-button" id="movie5">Trailer</a>
+      </div>
+
+      <div id="popup5" class="popup-content" style="display: none;">
+        <h2>A Beautiful Mind</h2>
+        <div id="video-container">
+          <!-- Încorporați direct iframe-ul videoclipului YouTube aici -->
+          <iframe width="290" height="163" src="https://www.youtube.com/embed/EajIlG_OCvw?si=zS9P81X_yLVHQ_oO" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <button id="closePopup5">Închide</button>
+      </div>
+  
+      <script>
+        document.getElementById("movie5").addEventListener("click", function(event) {
+          event.preventDefault();
+          document.getElementById("popup5").style.display = "block";
+        });
+        
+        document.getElementById("closePopup5").addEventListener("click", function(event) {
+          event.preventDefault();
+          document.getElementById("popup5").style.display = "none";
+        });
+        </script>
+
+      <div class="movie-card">
+        <img src="E:/PIUG/Tema 2/Poze/v_for.jpg" alt="V for Vendetta"  width="170" height="250">
+        <h3>V for Vendetta</h3>
+        <p>Anul lansării: 2005</p>
+        <p>Regizor: James McTeigue</p>
+        <p>Gen: Acțiune, Dramă, Science-Fiction</p>
+        <a href="#" class="movie-details-button" id="movie6">Trailer</a>
+      </div>
+
+      <div id="popup6" class="popup-content" style="display: none;">
+        <h2>V for Vendetta</h2>
+        <div id="video-container">
+          <!-- Încorporați direct iframe-ul videoclipului YouTube aici -->
+          <iframe width="290" height="163" src="https://www.youtube.com/embed/V5VGq23aZ-g?si=QaxAdMD23pSB2db3" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <button id="closePopup6">Închide</button>
+      </div>
+  
+      <script>
+        document.getElementById("movie6").addEventListener("click", function(event) {
+          event.preventDefault();
+          document.getElementById("popup6").style.display = "block";
+        });
+        
+        document.getElementById("closePopup6").addEventListener("click", function(event) {
+          event.preventDefault();
+          document.getElementById("popup6").style.display = "none";
+        });
+        </script>
+
+      <div class="movie-card">
+        <img src="E:/PIUG/Tema 2/Poze/mad_max.jpg" alt="Mad Max: Fury Road"  width="170" height="250">
+        <h3>Mad Max: Fury Road</h3>
+        <p>Anul lansării: 2015</p>
+        <p>Regizor: George Miller</p>
+        <p>Gen: Acțiune, Aventură, Science-Fiction</p>
+        <a href="#" class="movie-details-button" id="movie7">Trailer</a>
+      </div>
+
+      <div id="popup7" class="popup-content" style="display: none;">
+        <h2>Mad Max: Fury Road</h2>
+        <div id="video-container">
+          <!-- Încorporați direct iframe-ul videoclipului YouTube aici -->
+          <iframe width="290" height="163" src="https://www.youtube.com/embed/hEJnMQG9ev8?si=XArH4tQjAQS6BuMc" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <button id="closePopup7">Închide</button>
+      </div>
+  
+      <script>
+        document.getElementById("movie7").addEventListener("click", function(event) {
+          event.preventDefault();
+          document.getElementById("popup7").style.display = "block";
+        });
+        
+        document.getElementById("closePopup7").addEventListener("click", function(event) {
+          event.preventDefault();
+          document.getElementById("popup7").style.display = "none";
+        });
+        </script>
+
+      <div class="movie-card">
+        <img src="E:/PIUG/Tema 2/Poze/logan.jpg" alt="logan"  width="170" height="250">
+        <h3>Logan</h3>
+        <p>Anul lansării: 2017</p>
+        <p>Regizor: James Mangold</p>
+        <p>Gen: Acțiune, Dramă, Science-Fiction</p>
+        <a href="#" class="movie-details-button" id="movie8">Trailer</a>
+      </div>
+
+      <div id="popup8" class="popup-content" style="display: none;">
+        <h2>Logan</h2>
+        <div id="video-container">
+          <!-- Încorporați direct iframe-ul videoclipului YouTube aici -->
+          <iframe width="290" height="163" src="https://www.youtube.com/embed/RH3OxVFvTeg?si=3za72RC64lSxTWW5" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <button id="closePopup8">Închide</button>
+      </div>
+  
+      <script>
+        document.getElementById("movie8").addEventListener("click", function(event) {
+          event.preventDefault();
+          document.getElementById("popup8").style.display = "block";
+        });
+        
+        document.getElementById("closePopup8").addEventListener("click", function(event) {
+          event.preventDefault();
+          document.getElementById("popup8").style.display = "none";
+        });
+        </script>
+
+      <div class="movie-card">
+        <img src="E:/PIUG/Tema 2/Poze/taxi.jpg" alt="taxi"  width="170" height="250">
+        <h3>Taxi Driver</h3>
+        <p>Anul lansării: 1976</p>
+        <p>Regizor: Martin Scorsese</p>
+        <p>Gen: Crimă, Dramă</p>
+        <a href="#" class="movie-details-button" id="movie9">Trailer</a>
+      </div>
+
+      <div id="popup9" class="popup-content" style="display: none;">
+        <h2>Taxi Driver</h2>
+        <div id="video-container">
+          <!-- Încorporați direct iframe-ul videoclipului YouTube aici -->
+          <iframe width="290" height="163" src="https://www.youtube.com/embed/UUxD4-dEzn0?si=4KA-v8_yEdPixhtm" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <button id="closePopup9">Închide</button>
+      </div>
+  
+      <script>
+        document.getElementById("movie9").addEventListener("click", function(event) {
+          event.preventDefault();
+          document.getElementById("popup9").style.display = "block";
+        });
+        
+        document.getElementById("closePopup9").addEventListener("click", function(event) {
+          event.preventDefault();
+          document.getElementById("popup9").style.display = "none";
+        });
+        </script>
+
+      <div class="movie-card">
+        <img src="E:/PIUG/Tema 2/Poze/orange.jpg" alt="A Clockwork Orang"  width="170" height="250">
+        <h3>A Clockwork Orange</h3>
+        <p>Anul lansării: 1971</p>
+        <p>Regizor: Stanley Kubrick</p>
+        <p>Gen: Crimă, Science-Fiction</p>
+        <a href="#" class="movie-details-button" id="movie10">Trailer</a>
+      </div>
+
+      <div id="popup10" class="popup-content" style="display: none;">
+        <h2>A Clockwork Orange</h2>
+        <div id="video-container">
+          <!-- Încorporați direct iframe-ul videoclipului YouTube aici -->
+          <iframe width="290" height="163" src="https://www.youtube.com/embed/T54uZPI4Z8A?si=3mJ7p0uO1Mvzrrn5" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <button id="closePopup10">Închide</button>
+      </div>
+  
+      <script>
+        document.getElementById("movie10").addEventListener("click", function(event) {
+          event.preventDefault();
+          document.getElementById("popup10").style.display = "block";
+        });
+        
+        document.getElementById("closePopup10").addEventListener("click", function(event) {
+          event.preventDefault();
+          document.getElementById("popup10").style.display = "none";
+        });
+        </script>
+
+      <div class="movie-card">
+        <img src="E:/PIUG/Tema 2/Poze/deed.jpg" alt="Mr. Deeds"  width="170" height="250">
+        <h3>Mr. Deeds</h3>
+        <p>Anul lansării: 2002</p>
+        <p>Regizor: Steven Brill</p>
+        <p>Gen: Comedie, Romantic</p>
+        <a href="#" class="movie-details-button" id="movie11">Trailer</a>
+      </div>
+
+      <div id="popup11" class="popup-content" style="display: none;">
+        <h2>Mr. Deeds</h2>
+        <div id="video-container">
+          <!-- Încorporați direct iframe-ul videoclipului YouTube aici -->
+          <iframe width="290" height="163" src="https://www.youtube.com/embed/ASw47FiEhes?si=MEsvQIBFKgJuOs37" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <button id="closePopup11">Închide</button>
+      </div>
+  
+      <script>
+        document.getElementById("movie11").addEventListener("click", function(event) {
+          event.preventDefault();
+          document.getElementById("popup11").style.display = "block";
+        });
+        
+        document.getElementById("closePopup11").addEventListener("click", function(event) {
+          event.preventDefault();
+          document.getElementById("popup11").style.display = "none";
+        });
+        </script>
+
+      <div class="movie-card">
+        <img src="E:/PIUG/Tema 2/Poze/hard.jpg" alt="No Hard Feelings"  width="170" height="250">
+        <h3>No Hard Feelings</h3>
+        <p>Anul lansării: 2023</p>
+        <p>Regizor: Gene Stupnitsky</p>
+        <p>Gen: Comedie, Romantic</p>
+        <a href="#" class="movie-details-button" id="movie12">Trailer</a>
+      </div>
+
+      <div id="popup12" class="popup-content" style="display: none;">
+        <h2>No Hard Feelings</h2>
+        <div id="video-container">
+          <!-- Încorporați direct iframe-ul videoclipului YouTube aici -->
+          <iframe width="290" height="163" src="https://www.youtube.com/embed/P15S6ND8kbQ?si=1G1beiEtmMdG_f5n" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <button id="closePopup12">Închide</button>
+      </div>
+  
+      <script>
+        document.getElementById("movie12").addEventListener("click", function(event) {
+          event.preventDefault();
+          document.getElementById("popup12").style.display = "block";
+        });
+        
+        document.getElementById("closePopup12").addEventListener("click", function(event) {
+          event.preventDefault();
+          document.getElementById("popup12").style.display = "none";
+        });
+        </script>
+
+  </div>
+</div>
+
+<button onclick="topFunction()" id="scrollBtn" title="Go to top">Top</button>
+
+<script>
+// Obține butonul
+var mybutton = document.getElementById("scrollBtn");
+
+// Când utilizatorul face scroll în jos de la vârful documentului, arată butonul
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+// Când utilizatorul apasă pe buton, du-te în partea de sus a documentului
+function topFunction() {
+  document.body.scrollTop = 0; // Pentru Safari
+  document.documentElement.scrollTop = 0; // Pentru Chrome, Firefox, IE și Opera
+}
+
+function myFunction() {
+     var element = document.body;
+     element.classList.toggle("dark-mode");
+  }
+</script>
+
+</body>
+</html>
