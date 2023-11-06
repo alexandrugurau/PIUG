@@ -157,18 +157,6 @@
   </style>
 </head>
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-VDNTLKRNVD"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-
-  gtag('js', new Date());
-  gtag('config', 'G-VDNTLKRNVD');
-</script>
-
 <body>
   <div class="header">
     <h1>Filme.ro</h1>
@@ -246,37 +234,37 @@
       });
     }
   </script>
- <script>
-  function highlightSearchResults() {
-    var searchQuery = document.querySelector('input[type=search]').value.toLowerCase(); // Obțineți textul introdus în câmpul de căutare și convertiți-l la litere mici pentru căutare neterminată
-    var movieCards = document.querySelectorAll('.movie-card');
+  <script>
+    function highlightSearchResults() {
+      var searchQuery = document.querySelector('input[type=search]').value.toLowerCase();
+      var movieCards = document.querySelectorAll('.movie-card');
 
-    movieCards.forEach(function(card) {
-      var cardText = card.textContent.toLowerCase(); // Obțineți textul din fiecare căsuță cu film și convertiți-l la litere mici
-      var startIndex = cardText.indexOf(searchQuery);
-      var highlightedText = cardText;
+      movieCards.forEach(function (card) {
+        var cardText = card.textContent.toLowerCase();
+        var startIndex = cardText.indexOf(searchQuery);
+        var highlightedText = cardText;
 
-      while (startIndex !== -1) {
-        highlightedText = highlightedText.substring(0, startIndex) +
-          "<span class='highlighted'>" + cardText.substring(startIndex, startIndex + searchQuery.length) + "</span>" +
-          cardText.substring(startIndex + searchQuery.length);
+        while (startIndex !== -1) {
+          highlightedText = highlightedText.substring(0, startIndex) +
+            "<span class='highlighted'>" + cardText.substring(startIndex, startIndex + searchQuery.length) + "</span>" +
+            cardText.substring(startIndex + searchQuery.length);
 
-        startIndex = highlightedText.indexOf(searchQuery, startIndex + ("<span class='highlighted'>").length + searchQuery.length + ("</span>").length);
-      }
+          startIndex = highlightedText.indexOf(searchQuery, startIndex + ("<span class='highlighted'>").length + searchQuery.length + ("</span>").length);
+        }
 
-      card.innerHTML = highlightedText;
-    });
-  }
+        card.innerHTML = highlightedText;
+      });
+    }
 
-  // Funcția pentru a șterge evidențierea cuvintelor la ștergerea textului din căutare
-  function clearHighlight() {
-    var movieCards = document.querySelectorAll('.movie-card');
+    // Funcția pentru a șterge evidențierea cuvintelor la ștergerea textului din căutare
+    function clearHighlight() {
+      var movieCards = document.querySelectorAll('.movie-card');
 
-    movieCards.forEach(function(card) {
-      card.innerHTML = card.textContent;
-    });
-  }
-</script>
+      movieCards.forEach(function (card) {
+        card.innerHTML = card.textContent;
+      });
+    }
+  </script>
 
 </body>
 </html>
