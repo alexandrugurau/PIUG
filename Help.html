@@ -149,6 +149,13 @@ body.dark-mode {
 details {
   margin-bottom: 20px; /* Ajustează această valoare pentru a schimba spațiul dintre întrebări */
 }
+ 
+  .highlighted {
+    background-color: yellow; /* Culoarea de evidențiere */
+    font-weight: bold; /* Text bold pentru evidențiere */
+  }
+
+
 
 </style>
 </head>
@@ -176,7 +183,8 @@ details {
   <a href="#" class="active">Ajutor</a>
 
   <div class="search-and-theme">
-    <input type="search" placeholder="Caută...">
+   <input type="search" placeholder="Caută..." oninput="highlightSearchResults()" onblur="clearHighlight()">
+
     <button class="dark-mode-button" onclick="myFunction()"></button>
   </div>
 </div>
@@ -238,6 +246,32 @@ details {
      card.classList.toggle("dark-mode");
    });
 }
+</script>
+<script>
+  function highlightSearchResults() {
+    var searchQuery = document.querySelector('input[type=search]').value.toLowerCase(); // Obțineți textul introdus în câmpul de căutare și convertiți-l la litere mici pentru căutare neterminată
+    var movieCards = document.querySelectorAll('.movie-card');
+
+    movieCards.forEach(function(card) {
+      var cardText = card.textContent.toLowerCase(); // Obțineți textul din fiecare căsuță cu film și convertiți-l la litere mici
+      var startIndex = cardText.indexOf(searchQuery);
+      if (startIndex !== -1) {
+        var highlightedText = cardText.substring(0, startIndex) +
+          "<span class='highlighted'>" + cardText.substring(startIndex, startIndex + searchQuery.length) + "</span>" +
+          cardText.substring(startIndex + searchQuery.length);
+        card.innerHTML = highlightedText;
+      }
+    });
+  }
+
+  // Funcția pentru a șterge evidențierea cuvintelor la ștergerea textului din căutare
+  function clearHighlight() {
+    var movieCards = document.querySelectorAll('.movie-card');
+
+    movieCards.forEach(function(card) {
+      card.innerHTML = card.textContent;
+    });
+  }
 </script>
 
   
